@@ -2,13 +2,20 @@ import json
 
 
 class RestAPI:
-    database = {}
 
     def __init__(self, database=None):
-        users = database
+        self.database = database
 
     def get(self, url, payload=None):
-        return json.dumps({"users": []})
+        if payload == None:
+            return {"users": []}
+        results = []
+        for u in self.database["users"]:
+            for p in json.loads(payload)["users"]:
+                if((u["name"]) ==p):
+                    results.append(u)
+
+        return json.dumps(results)
 
     def post(self, url, payload=None):
         if url == "/add":
@@ -18,5 +25,5 @@ class RestAPI:
                     "owed_by": {},
                     "balance": 0.0
                     }
-            database[str_user["user"]] = user
+            self.database[str_user["user"]] = user
             return json.dumps(user)
