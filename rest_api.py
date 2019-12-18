@@ -8,14 +8,14 @@ class RestAPI:
 
     def get(self, url, payload=None):
         if payload == None:
-            return {"users": []}
+            return json.dumps({"users": []})
         results = []
         for u in self.database["users"]:
             for p in json.loads(payload)["users"]:
                 if((u["name"]) ==p):
                     results.append(u)
 
-        return json.dumps(results)
+        return json.dumps({"users": results})
 
     def post(self, url, payload=None):
         if url == "/add":
