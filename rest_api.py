@@ -5,7 +5,7 @@ class RestAPI:
     database = {}
 
     def __init__(self, database=None):
-        users = {}
+        users = database
 
     def get(self, url, payload=None):
         return json.dumps({"users": []})
@@ -18,4 +18,5 @@ class RestAPI:
                     "owed_by": {},
                     "balance": 0.0
                     }
+            database[str_user["user"]] = user
             return json.dumps(user)
